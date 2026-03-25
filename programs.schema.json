@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SPP Programs",
+  "description": "Program definitions and governance history for the ENS Service Provider Program.",
+  "type": "object",
+  "additionalProperties": {
+    "$ref": "#/$defs/Program"
+  },
+  "properties": {
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "Quarter": {
+      "type": "string",
+      "pattern": "^\\d{4}/Q[1-4]$"
+    },
+    "Url": {
+      "type": "string",
+      "pattern": "^https?://"
+    },
+    "Proposal": {
+      "type": "object",
+      "required": ["id", "title", "type", "date", "forumUrl"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^EP \\d+\\.\\d+",
+          "description": "ENS governance proposal ID (e.g., EP 4.7)."
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string",
+          "enum": ["social", "executable"],
+          "description": "Social votes run on Snapshot; executable votes run on-chain via Tally."
+        },
+        "description": {
+          "type": "string",
+          "description": "Brief summary of what this proposal decided."
+        },
+        "date": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+          "description": "Date the vote concluded or was executed (YYYY-MM-DD)."
+        },
+        "forumUrl": {
+          "$ref": "#/$defs/Url",
+          "description": "ENS forum discussion."
+        },
+        "snapshotUrl": {
+          "$ref": "#/$defs/Url",
+          "description": "Snapshot vote (for social proposals)."
+        },
+        "tallyUrl": {
+          "$ref": "#/$defs/Url",
+          "description": "Tally on-chain vote (for executable proposals)."
+        },
+        "docsUrl": {
+          "$ref": "#/$defs/Url",
+          "description": "ENS docs page (docs.ens.domains)."
+        }
+      }
+    },
+    "Program": {
+      "type": "object",
+      "required": ["name", "year1Quarters", "budget", "startDate", "proposals"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "year1Quarters": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Quarter" },
+          "minItems": 1
+        },
+        "year2Quarters": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Quarter" }
+        },
+        "budget": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total annual budget in USD."
+        },
+        "startDate": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+          "description": "Date streams commenced."
+        },
+        "proposals": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Proposal" },
+          "minItems": 1,
+          "description": "Governance proposals in chronological order."
+        }
+      }
+    }
+  }
+}

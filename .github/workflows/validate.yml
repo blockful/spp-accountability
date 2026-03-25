@@ -5,12 +5,17 @@ on:
     paths:
       - "providers.json"
       - "providers.schema.json"
+      - "programs.json"
+      - "programs.schema.json"
+      - "validate.mjs"
       - ".github/workflows/validate.yml"
   push:
     branches: [main]
     paths:
       - "providers.json"
       - "providers.schema.json"
+      - "programs.json"
+      - "programs.schema.json"
 
 jobs:
   validate:
@@ -25,5 +30,5 @@ jobs:
       - name: Install validator
         run: npm install ajv ajv-formats
 
-      - name: Validate providers.json
+      - name: Validate
         run: node validate.mjs

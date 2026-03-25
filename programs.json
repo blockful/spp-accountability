@@ -1,0 +1,90 @@
+{
+  "$schema": "./programs.schema.json",
+  "SPP1": {
+    "name": "Service Provider Program Season 1",
+    "year1Quarters": ["2024/Q2", "2024/Q3", "2024/Q4", "2025/Q1", "2025/Q2"],
+    "budget": 3600000,
+    "startDate": "2024-02-01",
+    "proposals": [
+      {
+        "id": "EP 4.7",
+        "title": "Create Service Provider Streams",
+        "type": "social",
+        "description": "Created the SPP framework with competitive streams, $200K increments, and open-source requirements.",
+        "date": "2023-11-08",
+        "forumUrl": "https://discuss.ens.domains/t/18091",
+        "snapshotUrl": "https://snapshot.box/#/s:ens.eth/proposal/0x5748982aed143f51333befbc6cc490116648b85a2b0212fdfaf3ab848932c7ae",
+        "docsUrl": "https://docs.ens.domains/dao/proposals/4.7/"
+      },
+      {
+        "id": "EP 4.9",
+        "title": "Select Providers for EP4.7 Streams",
+        "type": "social",
+        "description": "Selected 9 service providers from 28 candidates via approval voting with a greedy algorithm.",
+        "date": "2023-12-15",
+        "forumUrl": "https://discuss.ens.domains/t/18309",
+        "snapshotUrl": "https://snapshot.box/#/s:ens.eth/proposal/0x6ba81cd2997288cc49ae1b95921ec8f107e8ffb9733321d53d488e2b30710b86",
+        "docsUrl": "https://docs.ens.domains/dao/proposals/4.9/"
+      },
+      {
+        "id": "EP 5.2",
+        "title": "Commence Streams for Service Providers",
+        "type": "executable",
+        "description": "Initiated Superfluid streaming payments to the 9 selected providers at $3.6M/yr.",
+        "date": "2024-02-01",
+        "forumUrl": "https://discuss.ens.domains/t/18615",
+        "tallyUrl": "https://www.tally.xyz/gov/ens/proposal/63865530602418424570813160277709124551851041237648860550576561576702951975816",
+        "docsUrl": "https://docs.ens.domains/dao/proposals/5.2/"
+      }
+    ]
+  },
+  "SPP2": {
+    "name": "Service Provider Program Season 2",
+    "year1Quarters": ["2025/Q3", "2025/Q4", "2026/Q1", "2026/Q2"],
+    "year2Quarters": ["2026/Q3", "2026/Q4", "2027/Q1", "2027/Q2"],
+    "budget": 4500000,
+    "startDate": "2025-05-26",
+    "proposals": [
+      {
+        "id": "EP 6.3",
+        "title": "Renew Service Provider Budget",
+        "type": "social",
+        "description": "Renewed SPP for Season 2 and increased the annual budget from $3.6M to $4.5M/yr via ranked-choice vote.",
+        "date": "2025-02-24",
+        "forumUrl": "https://discuss.ens.domains/t/20272",
+        "snapshotUrl": "https://snapshot.box/#/s:ens.eth/proposal/0x0cca1cf36731203e235b0e2de9041be3a16d9cdeadff6e15e1f1215c611e12ef",
+        "docsUrl": "https://docs.ens.domains/dao/proposals/6.3/"
+      },
+      {
+        "id": "EP 6.5",
+        "title": "Service Provider Season 2 Vote Amendment",
+        "type": "social",
+        "description": "Amended SPP2 voting to allow granular budget preferences per provider using Copeland methodology. Superseded EP 6.4.",
+        "date": "2025-04-18",
+        "forumUrl": "https://discuss.ens.domains/t/20526",
+        "snapshotUrl": "https://snapshot.box/#/s:ens.eth/proposal/0x60c95ab69a427ce263f4c3c950df8da1134e96a3e76d139c8dac366271009530",
+        "docsUrl": "https://docs.ens.domains/dao/proposals/6.5/"
+      },
+      {
+        "id": "EP 6.10",
+        "title": "Select Providers for Service Provider Program Season II",
+        "type": "social",
+        "description": "Selected 8 service providers from 29 applicants via ranked-choice voting.",
+        "date": "2025-05-12",
+        "forumUrl": "https://discuss.ens.domains/t/20741",
+        "snapshotUrl": "https://snapshot.box/#/s:ens.eth/proposal/0x98c65ac02f738ddb430fcd723ea5852a45168550b3daf20f75d5d508ecf28aa1",
+        "docsUrl": "https://docs.ens.domains/dao/proposals/6.10/"
+      },
+      {
+        "id": "EP 6.13",
+        "title": "Service Provider Program Season 2 Implementation",
+        "type": "executable",
+        "description": "Commenced Superfluid streaming payments to 8 providers at $4.5M/yr. Corrected resubmission after first attempt was defeated.",
+        "date": "2025-07-07",
+        "forumUrl": "https://discuss.ens.domains/t/20971",
+        "tallyUrl": "https://www.tally.xyz/gov/ens/proposal/20404686300257550242704646761273386459664655640264490428281621095220078268383",
+        "docsUrl": "https://docs.ens.domains/dao/proposals/6.13/"
+      }
+    ]
+  }
+}

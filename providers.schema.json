@@ -3,22 +3,14 @@
   "title": "SPP Accountability Providers",
   "description": "Service provider metadata and quarterly reports for the ENS Service Provider Program.",
   "type": "object",
-  "required": ["programs", "providers"],
+  "required": ["providers"],
   "additionalProperties": false,
   "properties": {
     "$schema": {
       "type": "string"
     },
-    "programs": {
-      "type": "object",
-      "description": "Program definitions keyed by program ID (e.g., SPP1, SPP2).",
-      "additionalProperties": {
-        "$ref": "#/$defs/Program"
-      }
-    },
     "providers": {
       "type": "array",
-      "description": "All service providers across all programs.",
       "items": {
         "$ref": "#/$defs/Provider"
       }
@@ -27,38 +19,11 @@
   "$defs": {
     "Quarter": {
       "type": "string",
-      "pattern": "^\\d{4}/Q[1-4]$",
-      "description": "Quarter in YYYY/QN format (e.g., 2025/Q3)."
+      "pattern": "^\\d{4}/Q[1-4]$"
     },
     "Url": {
       "type": "string",
       "pattern": "^https?://"
-    },
-    "Program": {
-      "type": "object",
-      "required": ["year1Quarters"],
-      "additionalProperties": false,
-      "properties": {
-        "year1Quarters": {
-          "type": "array",
-          "items": { "$ref": "#/$defs/Quarter" },
-          "minItems": 1,
-          "description": "Quarters all providers report in."
-        },
-        "year2Quarters": {
-          "type": "array",
-          "items": { "$ref": "#/$defs/Quarter" },
-          "description": "Second-year quarters. Only streamDuration: 2 providers report here."
-        },
-        "forumUrl": {
-          "$ref": "#/$defs/Url",
-          "description": "Governance proposal forum post."
-        },
-        "voteUrl": {
-          "$ref": "#/$defs/Url",
-          "description": "On-chain governance vote (e.g., Tally)."
-        }
-      }
     },
     "ProviderProgram": {
       "type": "object",
@@ -88,29 +53,24 @@
       "properties": {
         "name": {
           "type": "string",
-          "minLength": 1,
-          "description": "Display name."
+          "minLength": 1
         },
         "slug": {
           "type": "string",
-          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
-          "description": "URL-safe identifier. Used for avatar files (avatars/slug.ext)."
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
         },
         "website": {
-          "$ref": "#/$defs/Url",
-          "description": "Organization website."
+          "$ref": "#/$defs/Url"
         },
         "programs": {
           "type": "object",
           "minProperties": 1,
-          "description": "Program participation. Keys must match a top-level program key.",
           "additionalProperties": {
             "$ref": "#/$defs/ProviderProgram"
           }
         },
         "reports": {
           "type": "object",
-          "description": "Quarterly report URLs keyed by quarter (YYYY/QN).",
           "propertyNames": {
             "$ref": "#/$defs/Quarter"
           },

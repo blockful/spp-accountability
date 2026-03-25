@@ -2,45 +2,75 @@ import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 import { readFileSync } from "fs";
 
-const schema = JSON.parse(readFileSync("providers.schema.json", "utf8"));
-const data = JSON.parse(readFileSync("providers.json", "utf8"));
+const providersSchema = JSON.parse(
+  readFileSync("providers.schema.json", "utf8"),
+);
+const programsSchema = JSON.parse(
+  readFileSync("programs.schema.json", "utf8"),
+);
+const providers = JSON.parse(readFileSync("providers.json", "utf8"));
+const programs = JSON.parse(readFileSync("programs.json", "utf8"));
 
 // --- Schema validation ---
 
 const ajv = new Ajv2020({ allErrors: true });
 addFormats(ajv);
-const validate = ajv.compile(schema);
 
-if (!validate(data)) {
-  console.error("Schema validation failed:");
-  for (const err of validate.errors) {
+const validateProviders = ajv.compile(providersSchema);
+if (!validateProviders(providers)) {
+  console.error("providers.json schema validation failed:");
+  for (const err of validateProviders.errors) {
     console.error(`  ${err.instancePath || "/"}: ${err.message}`);
   }
   process.exit(1);
 }
-console.log("✓ Schema validation passed");
+console.log("✓ providers.json schema validation passed");
+
+const validatePrograms = ajv.compile(programsSchema);
+if (!validatePrograms(programs)) {
+  console.error("programs.json schema validation failed:");
+  for (const err of validatePrograms.errors) {
+    console.error(`  ${err.instancePath || "/"}: ${err.message}`);
+  }
+  process.exit(1);
+}
+console.log("✓ programs.json schema validation passed");
 
 // --- Cross-referential checks ---
 
 const errors = [];
-const programKeys = new Set(Object.keys(data.programs));
+const programKeys = new Set(
+  Object.keys(programs).filter((k) => k !== "$schema"),
+);
 
-// All program quarters collected for report key validation
+// Collect all quarters defined across all programs
 const allQuarters = new Set();
-for (const program of Object.values(data.programs)) {
+for (const [key, program] of Object.entries(programs)) {
+  if (key === "$schema") continue;
   for (const q of program.year1Quarters ?? []) allQuarters.add(q);
   for (const q of program.year2Quarters ?? []) allQuarters.add(q);
 }
 
 // Check unique slugs
-const slugs = data.providers.map((p) => p.slug);
+const slugs = providers.providers.map((p) => p.slug);
 const seen = new Set();
 for (const slug of slugs) {
   if (seen.has(slug)) errors.push(`Duplicate slug: "${slug}"`);
   seen.add(slug);
 }
 
-for (const provider of data.providers) {
+// Check providers are sorted alphabetically by name
+for (let i = 1; i < providers.providers.length; i++) {
+  const prev = providers.providers[i - 1].name.toLowerCase();
+  const curr = providers.providers[i].name.toLowerCase();
+  if (prev > curr) {
+    errors.push(
+      `Providers not sorted: "${providers.providers[i - 1].name}" before "${providers.providers[i].name}"`,
+    );
+  }
+}
+
+for (const provider of providers.providers) {
   const { slug } = provider;
 
   // Provider program keys must reference defined programs
@@ -59,9 +89,9 @@ for (const provider of data.providers) {
     }
   }
 
-  // streamDuration: 2 only makes sense if the program has year2Quarters
+  // streamDuration: 2 only valid when program has year2Quarters
   for (const [programKey, entry] of Object.entries(provider.programs)) {
-    const program = data.programs[programKey];
+    const program = programs[programKey];
     if (
       entry.streamDuration === 2 &&
       program &&
@@ -74,6 +104,18 @@ for (const provider of data.providers) {
   }
 }
 
+// Check program proposals are in chronological order
+for (const [key, program] of Object.entries(programs)) {
+  if (key === "$schema") continue;
+  for (let i = 1; i < program.proposals.length; i++) {
+    if (program.proposals[i].date < program.proposals[i - 1].date) {
+      errors.push(
+        `${key}: proposals not in chronological order (${program.proposals[i - 1].id} → ${program.proposals[i].id})`,
+      );
+    }
+  }
+}
+
 if (errors.length > 0) {
   console.error("Cross-validation failed:");
   for (const err of errors) console.error(`  ${err}`);
@@ -81,6 +123,14 @@ if (errors.length > 0) {
 }
 console.log("✓ Cross-validation passed");
 
+const reportCount = providers.providers.reduce(
+  (n, p) => n + Object.keys(p.reports).length,
+  0,
+);
+const proposalCount = Object.values(programs)
+  .filter((p) => typeof p === "object" && p.proposals)
+  .reduce((n, p) => n + p.proposals.length, 0);
+
 console.log(
-  `\n  ${Object.keys(data.programs).length} programs, ${data.providers.length} providers, ${data.providers.reduce((n, p) => n + Object.keys(p.reports).length, 0)} reports`,
+  `\n  ${programKeys.size} programs, ${providers.providers.length} providers, ${reportCount} reports, ${proposalCount} proposals`,
 );
