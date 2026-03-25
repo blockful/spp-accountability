@@ -8,7 +8,7 @@
     "discussionUrl": "https://discuss.ens.domains/t/18091",
     "budgetProposal": {
       "id": "EP 4.7",
-      "title": "Create Service Provider Streams",
+      "title": "Budget Selection",
       "description": "Created the SPP framework and set the annual budget at $3.6M via ranked-choice vote.",
       "date": "2023-11-08",
       "forumUrl": "https://discuss.ens.domains/t/18091",
@@ -17,7 +17,7 @@
     },
     "selectionProposal": {
       "id": "EP 4.9",
-      "title": "Select Providers for EP4.7 Streams",
+      "title": "Service Provider Selection",
       "description": "Selected 9 service providers from 28 candidates via approval voting.",
       "date": "2023-12-15",
       "forumUrl": "https://discuss.ens.domains/t/18309",
@@ -34,7 +34,7 @@
     "discussionUrl": "https://discuss.ens.domains/t/20272",
     "budgetProposal": {
       "id": "EP 6.3",
-      "title": "Renew Service Provider Budget",
+      "title": "Budget Selection",
       "description": "Renewed SPP and increased the annual budget from $3.6M to $4.5M via ranked-choice vote.",
       "date": "2025-02-24",
       "forumUrl": "https://discuss.ens.domains/t/20272",
@@ -43,7 +43,7 @@
     },
     "selectionProposal": {
       "id": "EP 6.10",
-      "title": "Select Providers for Service Provider Program Season II",
+      "title": "Service Provider Selection",
       "description": "Selected 8 service providers from 29 applicants via ranked-choice voting.",
       "date": "2025-05-12",
       "forumUrl": "https://discuss.ens.domains/t/20741",
