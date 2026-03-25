@@ -1,11 +1,15 @@
 {
   "programs": {
     "SPP1": {
-      "quarters": ["2024/Q2", "2024/Q3", "2024/Q4", "2025/Q1", "2025/Q2"]
+      "quarters": ["2024/Q2", "2024/Q3", "2024/Q4", "2025/Q1", "2025/Q2"],
+      "forumUrl": "https://discuss.ens.domains/t/ep4-9-social-select-providers-for-ep4-7-streams/18309",
+      "voteUrl": "https://www.tally.xyz/gov/ens/proposal/15444655837654970953882509498818498137973903596861382893373309891498938228076"
     },
     "SPP2": {
       "year1Quarters": ["2025/Q3", "2025/Q4", "2026/Q1", "2026/Q2"],
-      "year2Quarters": ["2026/Q3", "2026/Q4", "2027/Q1", "2027/Q2"]
+      "year2Quarters": ["2026/Q3", "2026/Q4", "2027/Q1", "2027/Q2"],
+      "forumUrl": "https://discuss.ens.domains/t/ep-6-13-executable-service-provider-program-season-2-implementation/20971",
+      "voteUrl": "https://www.tally.xyz/gov/ens/proposal/28856354740781712150080298058306639380324081954512580556421963695836033781281"
     }
   },
   "providers": [
