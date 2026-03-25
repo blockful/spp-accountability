@@ -4,13 +4,71 @@ This repository tracks quarterly reports for the **ENS Service Provider Program 
 
 ## How it works
 
-Each service provider has a folder named after their slug (e.g. `blockful/`). Inside, reports are organized by year and quarter. When you open a PR adding a report file, the Anticapture dashboard picks it up automatically after it's merged.
+The `providers.json` file at the root of this repo is the **single source of truth** for all service provider metadata. It defines:
+
+- **Programs** — which SPP terms exist and which quarters they cover
+- **Providers** — name, website, proposal URL, budget, and stream duration per program
+
+The Anticapture dashboard reads this file at runtime. When you update it via PR, changes appear on the dashboard automatically (within ~1 hour of merge).
+
+Quarterly report files are organized by year, provider slug, and quarter. Each file contains a single markdown link to the published forum post.
+
+---
+
+## `providers.json` structure
+
+```json
+{
+  "programs": {
+    "SPP1": {
+      "quarters": ["2025/Q1", "2025/Q2"]
+    },
+    "SPP2": {
+      "year1Quarters": ["2025/Q3", "2025/Q4", "2026/Q1", "2026/Q2"],
+      "year2Quarters": ["2026/Q3", "2026/Q4", "2027/Q1", "2027/Q2"]
+    }
+  },
+  "providers": [
+    {
+      "name": "Your Organization",
+      "slug": "your-slug",
+      "website": "https://yoursite.com",
+      "programs": {
+        "SPP2": {
+          "proposalUrl": "https://discuss.ens.domains/t/your-proposal",
+          "budget": 400000,
+          "streamDuration": 1
+        }
+      }
+    }
+  ]
+}
+```
+
+### Program fields
+
+| Field | Description |
+|---|---|
+| `quarters` | List of quarters for single-year programs (format: `"YYYY/QN"`) |
+| `year1Quarters` | First-year quarters for multi-year programs |
+| `year2Quarters` | Second-year quarters (only 2-year stream providers report in these) |
+
+### Provider fields
+
+| Field | Required | Description |
+|---|---|---|
+| `name` | Yes | Display name |
+| `slug` | Yes | URL-safe identifier (used for folder names and avatars) |
+| `website` | No | Organization website URL |
+| `programs.{SPP}.proposalUrl` | No | Link to the forum proposal/application |
+| `programs.{SPP}.budget` | Yes | Annual budget in USD |
+| `programs.{SPP}.streamDuration` | No | `1` (default) or `2` years |
 
 ---
 
 ## Submitting a quarterly report
 
-1. Navigate to your provider folder: `2025/your-slug/`
+1. Navigate to your provider folder: `YEAR/your-slug/`
 2. Create a file named after the quarter: `q1.md`, `q2.md`, `q3.md`, or `q4.md`
 3. Inside the file, add a single markdown link pointing to your forum report:
 
@@ -38,6 +96,16 @@ Each service provider has a folder named after their slug (e.g. `blockful/`). In
 
 ---
 
+## Registering as a new provider
+
+If you've been selected for a new SPP term:
+
+1. Add your entry to the `providers` array in `providers.json`
+2. Add your avatar to `avatars/your-slug.svg` (or `.png`)
+3. Open a pull request
+
+---
+
 ## Updating your avatar
 
 Your avatar is displayed on the Anticapture dashboard next to your organization name. To add or update it:
@@ -59,16 +127,19 @@ avatars/
 
 ## Provider slugs
 
-| Organization | Slug |
-|---|---|
-| Blockful | `blockful` |
-| eth.limo | `eth-limo` |
-| Ethereum Identity Foundation | `ethereum-identity-fnd` |
-| JustaName | `justaname` |
-| NameHash Labs | `namehash-labs` |
-| Namespace | `namespace` |
-| Unruggable | `unruggable` |
-| ZK Email | `zk-email` |
+| Organization | Slug | Programs |
+|---|---|---|
+| Blockful | `blockful` | SPP1, SPP2 |
+| eth.limo | `eth-limo` | SPP1, SPP2 |
+| Ethereum Identity Foundation | `ethereum-identity-fnd` | SPP1, SPP2 |
+| JustaName | `justaname` | SPP2 |
+| NameHash Labs | `namehash-labs` | SPP1, SPP2 |
+| Namespace | `namespace` | SPP1, SPP2 |
+| Resolverworks | `resolverworks` | SPP1 |
+| Unicorn.eth | `unicorn-eth` | SPP1 |
+| Unruggable | `unruggable` | SPP1, SPP2 |
+| Wildcard Labs | `wildcard-labs` | SPP1 |
+| ZK Email | `zk-email` | SPP2 |
 
 ---
 
@@ -76,6 +147,7 @@ avatars/
 
 All contributions are made via pull request. A maintainer will review and merge your PR. There are no automated checks — just make sure:
 
+- `providers.json` is valid JSON and follows the schema above
 - Report files follow the `YEAR/your-slug/qN.md` path format
 - Each report file contains a single markdown link to your published forum post
 - Avatar files are placed in `avatars/` and named after your slug

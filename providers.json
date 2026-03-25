@@ -1,0 +1,160 @@
+{
+  "programs": {
+    "SPP1": {
+      "quarters": ["2025/Q1", "2025/Q2"]
+    },
+    "SPP2": {
+      "year1Quarters": ["2025/Q3", "2025/Q4", "2026/Q1", "2026/Q2"],
+      "year2Quarters": ["2026/Q3", "2026/Q4", "2027/Q1", "2027/Q2"]
+    }
+  },
+  "providers": [
+    {
+      "name": "Blockful",
+      "slug": "blockful",
+      "website": "https://blockful.io",
+      "programs": {
+        "SPP1": {
+          "proposalUrl": "https://discuss.ens.domains/t/service-provider-stream-nomination-thread/18142",
+          "budget": 300000
+        },
+        "SPP2": {
+          "proposalUrl": "https://discuss.ens.domains/t/spp2-blockful-application/20463",
+          "budget": 700000,
+          "streamDuration": 2
+        }
+      }
+    },
+    {
+      "name": "ETH.LIMO",
+      "slug": "eth-limo",
+      "website": "https://eth.limo",
+      "programs": {
+        "SPP1": {
+          "proposalUrl": "https://discuss.ens.domains/t/service-provider-stream-nomination-thread/18142/3",
+          "budget": 500000
+        },
+        "SPP2": {
+          "proposalUrl": "https://discuss.ens.domains/t/spp2-eth-limo-application/20369",
+          "budget": 700000,
+          "streamDuration": 2
+        }
+      }
+    },
+    {
+      "name": "NameHash Labs",
+      "slug": "namehash-labs",
+      "website": "https://namehashlabs.org",
+      "programs": {
+        "SPP1": {
+          "proposalUrl": "https://discuss.ens.domains/t/service-provider-stream-nomination-thread/18142",
+          "budget": 600000
+        },
+        "SPP2": {
+          "proposalUrl": "https://discuss.ens.domains/t/spp2-namehash-labs-application/20502",
+          "budget": 1100000
+        }
+      }
+    },
+    {
+      "name": "Ethereum Identity Foundation",
+      "slug": "ethereum-identity-fnd",
+      "website": "https://ethid.org",
+      "programs": {
+        "SPP1": {
+          "proposalUrl": "https://discuss.ens.domains/t/service-provider-stream-nomination-thread/18142/18",
+          "budget": 500000
+        },
+        "SPP2": {
+          "proposalUrl": "https://discuss.ens.domains/t/spp2-ethereum-identity-foundation-application/20439",
+          "budget": 500000
+        }
+      }
+    },
+    {
+      "name": "Unruggable",
+      "slug": "unruggable",
+      "website": "https://unruggable.com",
+      "programs": {
+        "SPP1": {
+          "proposalUrl": "https://discuss.ens.domains/t/service-provider-stream-nomination-thread/18142",
+          "budget": 400000
+        },
+        "SPP2": {
+          "proposalUrl": "https://discuss.ens.domains/t/spp2-unruggable-application/20485",
+          "budget": 400000
+        }
+      }
+    },
+    {
+      "name": "Namespace",
+      "slug": "namespace",
+      "website": "https://namespace.ninja",
+      "programs": {
+        "SPP1": {
+          "proposalUrl": "https://discuss.ens.domains/t/service-provider-stream-nomination-thread/18142",
+          "budget": 200000
+        },
+        "SPP2": {
+          "proposalUrl": "https://discuss.ens.domains/t/spp2-namespace-application/20456",
+          "budget": 400000
+        }
+      }
+    },
+    {
+      "name": "Resolverworks",
+      "slug": "resolverworks",
+      "website": "https://namestone.com",
+      "programs": {
+        "SPP1": {
+          "proposalUrl": "https://discuss.ens.domains/t/service-provider-stream-nomination-thread/18142/24",
+          "budget": 700000
+        }
+      }
+    },
+    {
+      "name": "Wildcard Labs",
+      "slug": "wildcard-labs",
+      "website": "https://wildcardlabs.xyz",
+      "programs": {
+        "SPP1": {
+          "proposalUrl": "https://discuss.ens.domains/t/service-provider-stream-nomination-thread/18142",
+          "budget": 200000
+        }
+      }
+    },
+    {
+      "name": "Unicorn.eth",
+      "slug": "unicorn-eth",
+      "website": "https://myunicornaccount.com",
+      "programs": {
+        "SPP1": {
+          "proposalUrl": "https://discuss.ens.domains/t/service-provider-stream-nomination-thread/18142",
+          "budget": 200000
+        }
+      }
+    },
+    {
+      "name": "ZK Email",
+      "slug": "zk-email",
+      "website": "https://zk.email",
+      "programs": {
+        "SPP2": {
+          "proposalUrl": "https://discuss.ens.domains/t/spp2-zk-email-application/20450",
+          "budget": 400000
+        }
+      }
+    },
+    {
+      "name": "JustaName",
+      "slug": "justaname",
+      "website": "https://justaname.id",
+      "programs": {
+        "SPP2": {
+          "proposalUrl": "https://discuss.ens.domains/t/spp2-justaname-application/20430",
+          "budget": 300000
+        }
+      }
+    }
+  ]
+}
