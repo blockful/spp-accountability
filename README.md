@@ -1,6 +1,6 @@
 # SPP Accountability
 
-Single source of truth for quarterly reports and service provider metadata in the **ENS Service Provider Program (SPP)**. Any platform can consume this data to display provider accountability.
+Single source of truth for the **ENS Service Provider Program (SPP)** — provider metadata, quarterly report links, and program definitions. All in one JSON file, validated by schema.
 
 ## Interfaces
 
@@ -8,30 +8,27 @@ Single source of truth for quarterly reports and service provider metadata in th
 |---|---|---|
 | Anticapture | [anticapture.com](https://anticapture.com) | Accountability table with report status, budgets, and program links |
 
-> Build an interface that consumes this data? Open a PR to add it here.
+> Build an interface that reads this data? Open a PR to add it here.
 
 ---
 
 ## Data structure
 
-All metadata lives in [`providers.json`](providers.json), validated by [`providers.schema.json`](providers.schema.json).
-
 ```
 spp-accountability/
-├── providers.json              # Programs + provider metadata (source of truth)
-├── providers.schema.json       # JSON Schema for validation
-├── avatars/
-│   └── {slug}.svg              # Provider logos
-└── {year}/
-    └── {slug}/
-        └── q{1-4}.md           # Quarterly report links
+├── providers.json            # All data (source of truth)
+├── providers.schema.json     # JSON Schema for validation
+├── validate.mjs              # Validation script (runs in CI)
+└── avatars/
+    └── {slug}.svg            # Provider logos
 ```
 
-### `providers.json`
+Everything lives in [`providers.json`](providers.json): programs, providers, budgets, and report URLs. No separate files per report.
+
+### Programs
 
 ```json
 {
-  "$schema": "./providers.schema.json",
   "programs": {
     "SPP2": {
       "year1Quarters": ["2025/Q3", "2025/Q4", "2026/Q1", "2026/Q2"],
@@ -39,7 +36,21 @@ spp-accountability/
       "forumUrl": "https://discuss.ens.domains/t/...",
       "voteUrl": "https://www.tally.xyz/gov/ens/proposal/..."
     }
-  },
+  }
+}
+```
+
+| Field | Required | Description |
+|---|---|---|
+| `year1Quarters` | Yes | Quarters all providers report in (`YYYY/QN`) |
+| `year2Quarters` | No | Second-year quarters (only `streamDuration: 2` providers) |
+| `forumUrl` | No | Governance proposal |
+| `voteUrl` | No | On-chain vote |
+
+### Providers
+
+```json
+{
   "providers": [
     {
       "name": "Your Organization",
@@ -47,35 +58,28 @@ spp-accountability/
       "website": "https://yoursite.com",
       "programs": {
         "SPP2": {
-          "proposalUrl": "https://discuss.ens.domains/t/your-proposal",
+          "proposalUrl": "https://discuss.ens.domains/t/...",
           "budget": 400000,
           "streamDuration": 1
         }
+      },
+      "reports": {
+        "2025/Q3": "https://discuss.ens.domains/t/your-q3-report"
       }
     }
   ]
 }
 ```
 
-### Program fields
-
-| Field | Required | Description |
-|---|---|---|
-| `year1Quarters` | Yes | Quarters all providers report in. Format: `"YYYY/QN"` |
-| `year2Quarters` | No | Second-year quarters. Only `streamDuration: 2` providers report here |
-| `forumUrl` | No | Governance proposal forum post |
-| `voteUrl` | No | On-chain vote (e.g., Tally) |
-
-### Provider fields
-
 | Field | Required | Description |
 |---|---|---|
 | `name` | Yes | Display name |
-| `slug` | Yes | Lowercase kebab-case identifier. Used for folders and avatars |
+| `slug` | Yes | Lowercase kebab-case identifier (used for avatars) |
 | `website` | No | Organization URL |
-| `programs.{key}.proposalUrl` | No | Provider's application/nomination for this program |
+| `programs.{key}.proposalUrl` | No | Application/nomination for this program |
 | `programs.{key}.budget` | Yes | Annual budget in USD |
 | `programs.{key}.streamDuration` | Yes | `1` or `2` years |
+| `reports.{YYYY/QN}` | — | URL to published forum report for that quarter |
 
 ---
 
@@ -83,13 +87,14 @@ spp-accountability/
 
 ### Submit a quarterly report
 
-1. Create `{year}/{your-slug}/q{N}.md` with a single markdown link:
-
-```md
-[Your Organization - Q1 2025 Report](https://discuss.ens.domains/t/your-report-link)
-```
-
-2. Open a pull request.
+1. Edit `providers.json`
+2. Add your report URL to the `reports` object:
+   ```json
+   "reports": {
+     "2025/Q3": "https://discuss.ens.domains/t/your-report-link"
+   }
+   ```
+3. Open a pull request. CI validates the schema automatically.
 
 ### Register as a new provider
 
@@ -99,14 +104,22 @@ spp-accountability/
 
 ### Update your avatar
 
-Add or replace your image in `avatars/` named `{your-slug}.{ext}` (SVG preferred).
+Replace or add `avatars/{your-slug}.svg` (SVG preferred).
 
 ---
 
 ## Validation
 
-Validate `providers.json` locally against the schema:
+CI runs automatically on PRs that touch `providers.json`. To validate locally:
 
 ```bash
-npx ajv-cli validate -s providers.schema.json -d providers.json --spec=draft2020
+npm install ajv ajv-formats
+node validate.mjs
 ```
+
+The validator checks:
+- JSON Schema conformance (types, required fields, patterns)
+- Provider program keys reference defined programs
+- Report quarter keys match program-defined quarters
+- No duplicate provider slugs
+- `streamDuration: 2` only used with programs that have `year2Quarters`

@@ -29,6 +29,12 @@
           "budget": 700000,
           "streamDuration": 2
         }
+      },
+      "reports": {
+        "2025/Q1": "https://discuss.ens.domains/t/blockful-service-provider-reports/19553/6",
+        "2025/Q2": "https://discuss.ens.domains/t/blockful-service-provider-reports/19553/6",
+        "2025/Q3": "https://discuss.ens.domains/t/blockful-service-provider-reports/19553/9",
+        "2025/Q4": "https://discuss.ens.domains/t/blockful-service-provider-reports/19553/9"
       }
     },
     {
@@ -46,6 +52,11 @@
           "budget": 700000,
           "streamDuration": 2
         }
+      },
+      "reports": {
+        "2025/Q1": "https://discuss.ens.domains/t/eth-limo-q1-2025-update/20586",
+        "2025/Q3": "https://discuss.ens.domains/t/eth-limo-q3-2025-update/21577",
+        "2025/Q4": "https://discuss.ens.domains/t/eth-limo-q4-2025-update/21796"
       }
     },
     {
@@ -63,6 +74,10 @@
           "budget": 1100000,
           "streamDuration": 1
         }
+      },
+      "reports": {
+        "2025/Q3": "https://discuss.ens.domains/t/namehash-labs-service-provider-reports/21408/2",
+        "2025/Q4": "https://discuss.ens.domains/t/namehash-labs-service-provider-reports/21408/3"
       }
     },
     {
@@ -80,6 +95,12 @@
           "budget": 500000,
           "streamDuration": 1
         }
+      },
+      "reports": {
+        "2025/Q1": "https://discuss.ens.domains/t/ethid-efp-spp-financial-and-progress-reports/20102/2",
+        "2025/Q2": "https://discuss.ens.domains/t/ethid-efp-spp-financial-and-progress-reports/20102/3",
+        "2025/Q3": "https://discuss.ens.domains/t/ethid-efp-spp-financial-and-progress-reports/20102/4",
+        "2025/Q4": "https://discuss.ens.domains/t/ethid-efp-spp-financial-and-progress-reports/20102/5"
       }
     },
     {
@@ -97,6 +118,10 @@
           "budget": 400000,
           "streamDuration": 1
         }
+      },
+      "reports": {
+        "2025/Q2": "https://discuss.ens.domains/t/unruggable-spp2-q2-2025-quarterly-report/21200",
+        "2025/Q3": "https://discuss.ens.domains/t/unruggable-update-and-spp2-q3-2025-quarterly-report/21688"
       }
     },
     {
@@ -114,6 +139,12 @@
           "budget": 400000,
           "streamDuration": 1
         }
+      },
+      "reports": {
+        "2025/Q1": "https://discuss.ens.domains/t/namespace-quarterly-reports/19057/5",
+        "2025/Q2": "https://discuss.ens.domains/t/namespace-quarterly-reports/19057/6",
+        "2025/Q3": "https://discuss.ens.domains/t/namespace-quarterly-reports/19057/7",
+        "2025/Q4": "https://discuss.ens.domains/t/namespace-quarterly-reports/19057/8"
       }
     },
     {
@@ -126,7 +157,8 @@
           "budget": 700000,
           "streamDuration": 1
         }
-      }
+      },
+      "reports": {}
     },
     {
       "name": "Wildcard Labs",
@@ -138,7 +170,8 @@
           "budget": 200000,
           "streamDuration": 1
         }
-      }
+      },
+      "reports": {}
     },
     {
       "name": "Unicorn.eth",
@@ -150,7 +183,8 @@
           "budget": 200000,
           "streamDuration": 1
         }
-      }
+      },
+      "reports": {}
     },
     {
       "name": "ZK Email",
@@ -162,6 +196,11 @@
           "budget": 400000,
           "streamDuration": 1
         }
+      },
+      "reports": {
+        "2025/Q1": "https://discuss.ens.domains/t/spp2-zk-email-application/20450/14",
+        "2025/Q2": "https://discuss.ens.domains/t/spp2-zk-email-application/20450/14",
+        "2025/Q3": "https://discuss.ens.domains/t/spp2-zk-email-application/20450/15"
       }
     },
     {
@@ -174,6 +213,11 @@
           "budget": 300000,
           "streamDuration": 1
         }
+      },
+      "reports": {
+        "2025/Q2": "https://discuss.ens.domains/t/justaname-quarterly-reports/21042/1",
+        "2025/Q3": "https://discuss.ens.domains/t/justaname-quarterly-reports/21042/2",
+        "2025/Q4": "https://discuss.ens.domains/t/justaname-quarterly-reports/21042/3"
       }
     }
   ]
