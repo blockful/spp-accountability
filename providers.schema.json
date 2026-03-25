@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SPP Accountability Providers",
+  "description": "Service provider metadata for the ENS Service Provider Program (SPP).",
+  "type": "object",
+  "required": ["programs", "providers"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Path to this schema file."
+    },
+    "programs": {
+      "type": "object",
+      "description": "SPP program definitions keyed by program ID (e.g., SPP1, SPP2).",
+      "additionalProperties": {
+        "$ref": "#/$defs/Program"
+      }
+    },
+    "providers": {
+      "type": "array",
+      "description": "List of all service providers across all programs.",
+      "items": {
+        "$ref": "#/$defs/Provider"
+      }
+    }
+  },
+  "$defs": {
+    "Quarter": {
+      "type": "string",
+      "pattern": "^\\d{4}/Q[1-4]$",
+      "description": "A quarter in YYYY/QN format (e.g., 2025/Q1)."
+    },
+    "Program": {
+      "type": "object",
+      "required": ["year1Quarters"],
+      "additionalProperties": false,
+      "properties": {
+        "year1Quarters": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Quarter" },
+          "description": "Quarters in the first year of the program. All providers report in these."
+        },
+        "year2Quarters": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Quarter" },
+          "description": "Quarters in the second year. Only providers with streamDuration: 2 report in these."
+        },
+        "forumUrl": {
+          "type": "string",
+          "description": "Link to the governance proposal forum post."
+        },
+        "voteUrl": {
+          "type": "string",
+          "description": "Link to the on-chain governance vote (e.g., Tally)."
+        }
+      }
+    },
+    "ProviderProgram": {
+      "type": "object",
+      "required": ["budget"],
+      "additionalProperties": false,
+      "properties": {
+        "proposalUrl": {
+          "type": "string",
+          "description": "Link to this provider's application or nomination for the program."
+        },
+        "budget": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Annual budget in USD."
+        },
+        "streamDuration": {
+          "type": "integer",
+          "enum": [1, 2],
+          "default": 1,
+          "description": "Stream duration in years. Providers with 2 report in year2Quarters."
+        }
+      }
+    },
+    "Provider": {
+      "type": "object",
+      "required": ["name", "slug", "programs"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Display name of the service provider."
+        },
+        "slug": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+          "description": "URL-safe identifier. Used for report folders (YEAR/slug/) and avatar files (avatars/slug.ext)."
+        },
+        "website": {
+          "type": "string",
+          "description": "Organization website URL."
+        },
+        "programs": {
+          "type": "object",
+          "description": "Program participation keyed by program ID. Keys must match a key in the top-level programs object.",
+          "additionalProperties": {
+            "$ref": "#/$defs/ProviderProgram"
+          }
+        }
+      }
+    }
+  }
+}
