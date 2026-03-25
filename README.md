@@ -1,17 +1,27 @@
 # SPP Accountability
 
-This repository tracks quarterly reports for the **ENS Service Provider Program (SPP)**. It powers the accountability table on the [Anticapture](https://anticapture.com) platform — reports you submit here will automatically appear there.
+This repository is the **single source of truth** for quarterly reports and service provider metadata in the **ENS Service Provider Program (SPP)**. Any platform or interface can consume this data to display provider accountability information.
+
+## Interfaces
+
+The following platforms read from this repository:
+
+| Platform | URL | What it shows |
+|---|---|---|
+| Anticapture | [anticapture.com](https://anticapture.com) | Accountability table with report status, budgets, and program links |
+
+> If you build an interface that consumes this data, open a PR to add it here.
 
 ## How it works
 
-The `providers.json` file at the root of this repo is the **single source of truth** for all service provider metadata. It defines:
+The `providers.json` file at the root of this repo contains all service provider metadata. It defines:
 
-- **Programs** — which SPP terms exist and which quarters they cover
+- **Programs** — which SPP terms exist, which quarters they cover, and links to the governance proposal and vote
 - **Providers** — name, website, proposal URL, budget, and stream duration per program
 
-The Anticapture dashboard reads this file at runtime. When you update it via PR, changes appear on the dashboard automatically (within ~1 hour of merge).
-
 Quarterly report files are organized by year, provider slug, and quarter. Each file contains a single markdown link to the published forum post.
+
+When you update data via PR, consuming interfaces pick up the changes automatically.
 
 ---
 
@@ -21,11 +31,15 @@ Quarterly report files are organized by year, provider slug, and quarter. Each f
 {
   "programs": {
     "SPP1": {
-      "quarters": ["2025/Q1", "2025/Q2"]
+      "quarters": ["2024/Q2", "2024/Q3", "2024/Q4", "2025/Q1", "2025/Q2"],
+      "forumUrl": "https://discuss.ens.domains/t/...",
+      "voteUrl": "https://www.tally.xyz/gov/ens/proposal/..."
     },
     "SPP2": {
       "year1Quarters": ["2025/Q3", "2025/Q4", "2026/Q1", "2026/Q2"],
-      "year2Quarters": ["2026/Q3", "2026/Q4", "2027/Q1", "2027/Q2"]
+      "year2Quarters": ["2026/Q3", "2026/Q4", "2027/Q1", "2027/Q2"],
+      "forumUrl": "https://discuss.ens.domains/t/...",
+      "voteUrl": "https://www.tally.xyz/gov/ens/proposal/..."
     }
   },
   "providers": [
@@ -52,6 +66,8 @@ Quarterly report files are organized by year, provider slug, and quarter. Each f
 | `quarters` | List of quarters for single-year programs (format: `"YYYY/QN"`) |
 | `year1Quarters` | First-year quarters for multi-year programs |
 | `year2Quarters` | Second-year quarters (only 2-year stream providers report in these) |
+| `forumUrl` | Link to the governance proposal forum post |
+| `voteUrl` | Link to the on-chain vote (e.g., Tally) |
 
 ### Provider fields
 
@@ -108,7 +124,7 @@ If you've been selected for a new SPP term:
 
 ## Updating your avatar
 
-Your avatar is displayed on the Anticapture dashboard next to your organization name. To add or update it:
+Avatars are displayed next to your organization name on consuming interfaces. To add or update:
 
 1. Add your image file to the `avatars/` folder at the root of this repo
 2. Name it after your slug with any image extension: `your-slug.png`, `your-slug.svg`, etc.
