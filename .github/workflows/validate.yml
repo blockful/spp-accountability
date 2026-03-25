@@ -1,0 +1,29 @@
+name: Validate
+
+on:
+  pull_request:
+    paths:
+      - "providers.json"
+      - "providers.schema.json"
+      - ".github/workflows/validate.yml"
+  push:
+    branches: [main]
+    paths:
+      - "providers.json"
+      - "providers.schema.json"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install validator
+        run: npm install ajv ajv-formats
+
+      - name: Validate providers.json
+        run: node validate.mjs
