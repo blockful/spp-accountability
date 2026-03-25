@@ -22,7 +22,7 @@
     },
     "Proposal": {
       "type": "object",
-      "required": ["id", "title", "type", "date", "forumUrl"],
+      "required": ["id", "title", "date", "forumUrl", "snapshotUrl"],
       "additionalProperties": false,
       "properties": {
         "id": {
@@ -34,19 +34,13 @@
           "type": "string",
           "minLength": 1
         },
-        "type": {
-          "type": "string",
-          "enum": ["social", "executable"],
-          "description": "Social votes run on Snapshot; executable votes run on-chain via Tally."
-        },
         "description": {
-          "type": "string",
-          "description": "Brief summary of what this proposal decided."
+          "type": "string"
         },
         "date": {
           "type": "string",
           "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
-          "description": "Date the vote concluded or was executed (YYYY-MM-DD)."
+          "description": "Date the vote concluded (YYYY-MM-DD)."
         },
         "forumUrl": {
           "$ref": "#/$defs/Url",
@@ -54,21 +48,25 @@
         },
         "snapshotUrl": {
           "$ref": "#/$defs/Url",
-          "description": "Snapshot vote (for social proposals)."
-        },
-        "tallyUrl": {
-          "$ref": "#/$defs/Url",
-          "description": "Tally on-chain vote (for executable proposals)."
+          "description": "Snapshot vote."
         },
         "docsUrl": {
           "$ref": "#/$defs/Url",
-          "description": "ENS docs page (docs.ens.domains)."
+          "description": "ENS docs page."
         }
       }
     },
     "Program": {
       "type": "object",
-      "required": ["name", "year1Quarters", "budget", "startDate", "proposals"],
+      "required": [
+        "name",
+        "year1Quarters",
+        "budget",
+        "startDate",
+        "discussionUrl",
+        "budgetProposal",
+        "selectionProposal"
+      ],
       "additionalProperties": false,
       "properties": {
         "name": {
@@ -94,11 +92,17 @@
           "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
           "description": "Date streams commenced."
         },
-        "proposals": {
-          "type": "array",
-          "items": { "$ref": "#/$defs/Proposal" },
-          "minItems": 1,
-          "description": "Governance proposals in chronological order."
+        "discussionUrl": {
+          "$ref": "#/$defs/Url",
+          "description": "Initial forum discussion for this program."
+        },
+        "budgetProposal": {
+          "$ref": "#/$defs/Proposal",
+          "description": "Proposal that defined the program budget."
+        },
+        "selectionProposal": {
+          "$ref": "#/$defs/Proposal",
+          "description": "Proposal that selected the service providers."
         }
       }
     }

@@ -104,15 +104,13 @@ for (const provider of providers.providers) {
   }
 }
 
-// Check program proposals are in chronological order
+// Check budget proposal date is before selection proposal date
 for (const [key, program] of Object.entries(programs)) {
   if (key === "$schema") continue;
-  for (let i = 1; i < program.proposals.length; i++) {
-    if (program.proposals[i].date < program.proposals[i - 1].date) {
-      errors.push(
-        `${key}: proposals not in chronological order (${program.proposals[i - 1].id} → ${program.proposals[i].id})`,
-      );
-    }
+  if (program.budgetProposal.date > program.selectionProposal.date) {
+    errors.push(
+      `${key}: budget proposal (${program.budgetProposal.id}) should be before selection (${program.selectionProposal.id})`,
+    );
   }
 }
 
@@ -127,10 +125,6 @@ const reportCount = providers.providers.reduce(
   (n, p) => n + Object.keys(p.reports).length,
   0,
 );
-const proposalCount = Object.values(programs)
-  .filter((p) => typeof p === "object" && p.proposals)
-  .reduce((n, p) => n + p.proposals.length, 0);
-
 console.log(
-  `\n  ${programKeys.size} programs, ${providers.providers.length} providers, ${reportCount} reports, ${proposalCount} proposals`,
+  `\n  ${programKeys.size} programs, ${providers.providers.length} providers, ${reportCount} reports`,
 );
