@@ -33,28 +33,30 @@ Defines each SPP term: quarters, budget, and the governance proposals that creat
 
 ```json
 {
-  "SPP2": {
-    "name": "Service Provider Program Season 2",
-    "year1Quarters": ["2025/Q3", "2025/Q4", "2026/Q1", "2026/Q2"],
-    "year2Quarters": ["2026/Q3", "2026/Q4", "2027/Q1", "2027/Q2"],
-    "budget": 4500000,
-    "startDate": "2025-05-26",
-    "discussionUrl": "https://discuss.ens.domains/t/...",
-    "budgetProposal": {
-      "id": "EP 6.3",
-      "title": "Renew Service Provider Budget",
-      "date": "2025-02-24",
-      "forumUrl": "https://discuss.ens.domains/t/...",
-      "snapshotUrl": "https://snapshot.box/#/s:ens.eth/proposal/...",
-      "docsUrl": "https://docs.ens.domains/dao/proposals/6.3/"
-    },
-    "selectionProposal": {
-      "id": "EP 6.10",
-      "title": "Select Providers for SPP Season II",
-      "date": "2025-05-12",
-      "forumUrl": "https://discuss.ens.domains/t/...",
-      "snapshotUrl": "https://snapshot.box/#/s:ens.eth/proposal/...",
-      "docsUrl": "https://docs.ens.domains/dao/proposals/6.10/"
+  "programs": {
+    "SPP2": {
+      "name": "Service Provider Program Season 2",
+      "year1Quarters": ["2025/Q3", "2025/Q4", "2026/Q1", "2026/Q2"],
+      "year2Quarters": ["2026/Q3", "2026/Q4", "2027/Q1", "2027/Q2"],
+      "budget": 4500000,
+      "startDate": "2025-05-26",
+      "discussionUrl": "https://discuss.ens.domains/t/...",
+      "budgetProposal": {
+        "id": "EP 6.3",
+        "title": "Renew Service Provider Budget",
+        "date": "2025-02-24",
+        "forumUrl": "https://discuss.ens.domains/t/...",
+        "snapshotUrl": "https://snapshot.box/#/s:ens.eth/proposal/...",
+        "docsUrl": "https://docs.ens.domains/dao/proposals/6.3/"
+      },
+      "selectionProposal": {
+        "id": "EP 6.10",
+        "title": "Select Providers for SPP Season II",
+        "date": "2025-05-12",
+        "forumUrl": "https://discuss.ens.domains/t/...",
+        "snapshotUrl": "https://snapshot.box/#/s:ens.eth/proposal/...",
+        "docsUrl": "https://docs.ens.domains/dao/proposals/6.10/"
+      }
     }
   }
 }
@@ -171,6 +173,7 @@ The validator checks:
 - JSON Schema conformance for both `providers.json` and `programs.json`
 - Provider program keys reference defined programs
 - Report quarter keys match program-defined quarters
+- Report quarters belong to programs the provider participates in
 - Providers are sorted alphabetically
 - No duplicate provider slugs
 - `streamDuration: 2` only used with programs that have `year2Quarters`

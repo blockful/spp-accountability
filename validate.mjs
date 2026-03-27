@@ -39,14 +39,13 @@ console.log("✓ programs.json schema validation passed");
 // --- Cross-referential checks ---
 
 const errors = [];
-const programKeys = new Set(
-  Object.keys(programs).filter((k) => k !== "$schema"),
-);
+const warnings = [];
+const programEntries = programs.programs;
+const programKeys = new Set(Object.keys(programEntries));
 
 // Collect all quarters defined across all programs
 const allQuarters = new Set();
-for (const [key, program] of Object.entries(programs)) {
-  if (key === "$schema") continue;
+for (const program of Object.values(programEntries)) {
   for (const q of program.year1Quarters ?? []) allQuarters.add(q);
   for (const q of program.year2Quarters ?? []) allQuarters.add(q);
 }
@@ -89,9 +88,27 @@ for (const provider of providers.providers) {
     }
   }
 
+  // Report quarters must belong to a program the provider participates in
+  const providerQuarters = new Set();
+  for (const programKey of Object.keys(provider.programs)) {
+    const program = programEntries[programKey];
+    if (!program) continue;
+    for (const q of program.year1Quarters ?? []) providerQuarters.add(q);
+    if (provider.programs[programKey].streamDuration === 2) {
+      for (const q of program.year2Quarters ?? []) providerQuarters.add(q);
+    }
+  }
+  for (const key of Object.keys(provider.reports)) {
+    if (!providerQuarters.has(key)) {
+      warnings.push(
+        `${slug}: report "${key}" doesn't belong to any program the provider participates in`,
+      );
+    }
+  }
+
   // streamDuration: 2 only valid when program has year2Quarters
   for (const [programKey, entry] of Object.entries(provider.programs)) {
-    const program = programs[programKey];
+    const program = programEntries[programKey];
     if (
       entry.streamDuration === 2 &&
       program &&
@@ -105,13 +122,17 @@ for (const provider of providers.providers) {
 }
 
 // Check budget proposal date is before selection proposal date
-for (const [key, program] of Object.entries(programs)) {
-  if (key === "$schema") continue;
+for (const [key, program] of Object.entries(programEntries)) {
   if (program.budgetProposal.date > program.selectionProposal.date) {
     errors.push(
       `${key}: budget proposal (${program.budgetProposal.id}) should be before selection (${program.selectionProposal.id})`,
     );
   }
+}
+
+if (warnings.length > 0) {
+  console.warn("Cross-validation warnings:");
+  for (const warn of warnings) console.warn(`  ⚠ ${warn}`);
 }
 
 if (errors.length > 0) {

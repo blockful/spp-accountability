@@ -3,12 +3,18 @@
   "title": "SPP Programs",
   "description": "Program definitions and governance history for the ENS Service Provider Program.",
   "type": "object",
-  "additionalProperties": {
-    "$ref": "#/$defs/Program"
-  },
+  "required": ["programs"],
+  "additionalProperties": false,
   "properties": {
     "$schema": {
       "type": "string"
+    },
+    "programs": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/Program"
+      },
+      "description": "Map of program keys to program definitions."
     }
   },
   "$defs": {
